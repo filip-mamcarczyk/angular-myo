@@ -6,11 +6,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ArmbandSliderComponent } from './armband-slider/armband-slider.component';
 import { ArmbandService } from './services/armband';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArmbandSliderComponent
+    ArmbandSliderComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
