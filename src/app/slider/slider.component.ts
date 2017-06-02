@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArmbandService} from "../services/armband";
-import {PhotosService} from "../services/photos.service";
+import {PhotosService, Photo} from "../services/photos.service";
 
 @Component({
   selector: 'app-slider',
@@ -11,9 +11,9 @@ export class SliderComponent implements OnInit {
 
   public text: string = "Welcome!";
 
-  public photosUrls: string[] = [];
+  public photos: Photo[] = [];
 
-  constructor(private armband: ArmbandService, private photos: PhotosService) { }
+  constructor(private armband: ArmbandService, private photosService: PhotosService) { }
 
   ngOnInit() {
     this.armband.fist$.subscribe(() => this.text = 'fist!');
@@ -21,7 +21,7 @@ export class SliderComponent implements OnInit {
     this.armband.swipeLeft$.subscribe(() => this.text = 'swipeLeft$');
     this.armband.swipeRight$.subscribe(() => this.text = 'swipeRight$!');
 
-    this.photosUrls = this.photos.getPhotosUrls();
+    this.photos = this.photosService.getPhotos();
   }
 
 }

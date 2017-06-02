@@ -3,22 +3,31 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PhotosService {
 
-  private photos: string[] = [
-    "../../assets/imgs/1.jpg",
-    "../../assets/imgs/2.jpg",
-    "../../assets/imgs/3.jpg",
-    "../../assets/imgs/4.jpg",
-    "../../assets/imgs/5.jpg",
-    "../../assets/imgs/6.jpg",
-    "../../assets/imgs/7.jpg",
-    "../../assets/imgs/8.jpg",
-    "../../assets/imgs/9.jpg"
+  private photos: Photo[] = [
+    new Photo("1"),
+    new Photo("2"),
+    new Photo("3"),
+    new Photo("4"),
+    new Photo("5"),
+    new Photo("6"),
+    new Photo("7"),
+    new Photo("8"),
+    new Photo("9")
   ];
 
   constructor() { }
 
-  public getPhotosUrls(): string[] {
+  public getPhotos(): Photo[] {
     return this.photos;
   }
 
+}
+
+export class Photo {
+
+  public url;
+
+  constructor(id: string) {
+    this.url =`../../assets/imgs/${id}.jpg`;
+  }
 }

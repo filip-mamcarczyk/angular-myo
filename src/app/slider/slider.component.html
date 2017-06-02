@@ -1,6 +1,6 @@
 <p>
  {{ text }}
 </p>
-<div *ngFor="let photoUrl of photosUrls">
-  <img width="100" src="{{photoUrl}}" alt="">
+<div *ngFor="let photo of photos">
+  <img width="100" src="{{photo.url}}" alt="">
 </div>
