@@ -8,6 +8,7 @@ import { ArmbandSliderComponent } from './armband-slider/armband-slider.componen
 import { ArmbandService } from './services/armband';
 import { SliderComponent } from './slider/slider.component';
 import {PhotosService} from "./services/photos.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {PhotosService} from "./services/photos.service";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ArmbandService,

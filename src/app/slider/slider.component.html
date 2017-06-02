@@ -1,6 +1,15 @@
-<p>
- {{ text }}
-</p>
-<div *ngFor="let photo of photos">
-  <img width="100" src="{{photo.url}}" alt="">
+<div class="container" >
+  <!--<div class="cover" [ngStyle]="{'background-image': 'url(' + activePhoto.url + ')'}"></div>-->
+  <p>{{ text }}</p>
+  <div class="photo_list">
+    <div
+      class="photo"
+      *ngFor="let photo of photos"
+      [@selectActivePhoto]="photo.state"
+      (click)="select(photo)"
+      [ngClass]="photo.state"
+    >
+      <img width="100" src="{{photo.url}}">
+    </div>
+  </div>
 </div>

@@ -17,15 +17,21 @@ export class PhotosService {
 
   constructor() { }
 
-  public getPhotos(): Photo[] {
+  public getAllPhotos(): Photo[] {
     return this.photos;
+  }
+
+  public getPhoto(index: number): Photo {
+    return this.photos[index]
   }
 
 }
 
 export class Photo {
 
-  public url;
+  public url: string;
+
+  public state: "active" | "inactive" = "inactive";
 
   constructor(id: string) {
     this.url =`../../assets/imgs/${id}.jpg`;
