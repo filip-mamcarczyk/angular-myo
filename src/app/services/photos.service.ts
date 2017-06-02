@@ -4,15 +4,15 @@ import { Injectable } from '@angular/core';
 export class PhotosService {
 
   private photos: Photo[] = [
-    new Photo("1"),
-    new Photo("2"),
-    new Photo("3"),
-    new Photo("4"),
-    new Photo("5"),
-    new Photo("6"),
-    new Photo("7"),
-    new Photo("8"),
-    new Photo("9")
+    new Photo(0),
+    new Photo(1),
+    new Photo(2),
+    new Photo(3),
+    new Photo(4),
+    new Photo(5),
+    new Photo(6),
+    new Photo(7),
+    new Photo(8)
   ];
 
   constructor() { }
@@ -24,7 +24,6 @@ export class PhotosService {
   public getPhoto(index: number): Photo {
     return this.photos[index]
   }
-
 }
 
 export class Photo {
@@ -33,7 +32,7 @@ export class Photo {
 
   public state: "active" | "inactive" = "inactive";
 
-  constructor(id: string) {
-    this.url =`../../assets/imgs/${id}.jpg`;
+  constructor(public index: number) {
+    this.url =`../../assets/imgs/${index + 1}.jpg`;
   }
 }

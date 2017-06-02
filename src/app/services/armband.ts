@@ -15,7 +15,16 @@ export class ArmbandService {
         });
         this.armband.onError = error => console.log(error);
         this.armband.connect('org.neurojs.myo');
+
     }
+
+
+   get gesture$() {
+      return Observable.merge(
+        this.swipeLeft$,
+        this.swipeRight$
+      )
+   }
 
   get fist$() {
     return Observable.fromEvent(this.armband, "fist");
@@ -26,11 +35,11 @@ export class ArmbandService {
   }
 
   get swipeLeft$() {
-    return Observable.fromEvent(this.armband, "wave_in");
+    return Observable.fromEvent(this.armband, "wave_in").map(() => "wave_in");
   }
 
   get swipeRight$() {
-    return Observable.fromEvent(this.armband, "wave_out");
+    return Observable.fromEvent(this.armband, "wave_out").map(() => "wave_out");
   }
   fromEvent(event) {
         return Observable.fromEvent(this.armband, event);

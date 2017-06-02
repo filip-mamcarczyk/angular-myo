@@ -1,6 +1,5 @@
 <div class="container" >
-  <!--<div class="cover" [ngStyle]="{'background-image': 'url(' + activePhoto.url + ')'}"></div>-->
-  <p>{{ text }}</p>
+  <div class="cover" [ngStyle]="{'background-image': 'url(' + activePhoto.url + ')'}"></div>
   <div class="photo_list">
     <div
       class="photo"
@@ -8,6 +7,8 @@
       [@selectActivePhoto]="photo.state"
       (click)="select(photo)"
       [ngClass]="photo.state"
+      (@selectActivePhoto.start)="animating = true"
+      (@selectActivePhoto.done)="animating = false"
     >
       <img width="100" src="{{photo.url}}">
     </div>
