@@ -22,16 +22,18 @@ export class ArmbandService {
    get gesture$() {
       return Observable.merge(
         this.swipeLeft$,
-        this.swipeRight$
+        this.swipeRight$,
+        this.spread$,
+        this.fist$
       )
    }
 
   get fist$() {
-    return Observable.fromEvent(this.armband, "fist");
+    return Observable.fromEvent(this.armband, "fist").map(() => "fist");
   }
 
   get spread$() {
-    return Observable.fromEvent(this.armband, "fingers_spread");
+    return Observable.fromEvent(this.armband, "fingers_spread").map(() => "fingers_spread");
   }
 
   get swipeLeft$() {
@@ -41,6 +43,7 @@ export class ArmbandService {
   get swipeRight$() {
     return Observable.fromEvent(this.armband, "wave_out").map(() => "wave_out");
   }
+
   fromEvent(event) {
         return Observable.fromEvent(this.armband, event);
     }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ArmbandService} from "../services/armband";
 import {PhotosService, Photo} from "../services/photos.service";
 import {trigger, state, style, transition, animate} from "@angular/animations";
-import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-slider',
@@ -18,6 +17,26 @@ import {Subject} from "rxjs";
       })),
       transition('inactive => active', animate('100ms ease-in')),
       transition('active => inactive', animate('100ms ease-out'))
+    ]),
+    trigger("slideDownList", [
+      state("visible", style({
+        transform: "translateY(0px)"
+      })),
+      state("hidden", style({
+        transform: "translateY(1000px)"
+      })),
+      transition('hidden => visible', animate('500ms ease-in')),
+      transition('visible => hidden', animate('500ms ease-in'))
+    ]),
+    trigger("sharpenCover", [
+      state("visible", style({
+        filter: "blur(10px)"
+      })),
+      state("hidden", style({
+        filter: "blur(0px)"
+      })),
+      transition('hidden => visible', animate('500ms ease-in')),
+      transition('visible => hidden', animate('500ms ease-in'))
     ])
   ]
 })
@@ -29,9 +48,7 @@ export class SliderComponent implements OnInit {
 
   public activePhoto: Photo;
   public animating: boolean = false;
-
-  public animationStart$: Subject<any> = new Subject();
-  public animationDone$: Subject<any> = new Subject();
+  public listVisibility: "visible" | "hidden" = "visible";
 
   constructor(private armband: ArmbandService, private photosService: PhotosService) { }
 
@@ -42,8 +59,6 @@ export class SliderComponent implements OnInit {
 
     this.armband.gesture$
       .filter(() => !this.animating)
-      // .takeUntil(this.animationStart$)
-      // .repeatWhen(() => this.animationDone$)
       .subscribe(g => this.react(g));
 
     this.photos = this.photosService.getAllPhotos();
@@ -51,6 +66,7 @@ export class SliderComponent implements OnInit {
   }
 
   public react(gesture: any): void {
+    console.log(gesture)
       switch (gesture) {
         case "wave_in":
           this.swipeLeft();
@@ -58,11 +74,16 @@ export class SliderComponent implements OnInit {
         case "wave_out":
           this.swipeRight();
           break;
+        case "fingers_spread":
+          this.listVisibility = "hidden";
+          break;
+        case "fist":
+          this.listVisibility = "visible";
+          break;
       }
   }
 
   private swipeRight(): void {
-    console.log('r')
     let index: number = this.activePhoto.index + 1;
     if (index === this.photos.length) {
       index = 0;
@@ -77,6 +98,7 @@ export class SliderComponent implements OnInit {
     }
     this.select(this.photos[index]);
   }
+
 
   public select(photo: Photo) {
     if (this.activePhoto) {

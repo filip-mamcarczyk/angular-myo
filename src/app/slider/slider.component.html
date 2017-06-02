@@ -1,6 +1,13 @@
 <div class="container" >
-  <div class="cover" [ngStyle]="{'background-image': 'url(' + activePhoto.url + ')'}"></div>
-  <div class="photo_list">
+  <div
+    class="cover"
+    [ngStyle]="{'background-image': 'url(' + activePhoto.url + ')'}"
+    [@sharpenCover]="listVisibility"
+  ></div>
+  <div
+    class="photo_list"
+    [@slideDownList]="listVisibility"
+  >
     <div
       class="photo"
       *ngFor="let photo of photos"
